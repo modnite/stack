@@ -1,0 +1,46 @@
+name: Deploy
+
+# Optional. Runs ./scripts/update.sh on the server over SSH when you press "Run workflow" in GitHub, so a release
+# can go out without opening a terminal.
+#
+# Needs these repository secrets:
+#   DEPLOY_HOST   the server's address
+#   DEPLOY_USER   the login to use (root, or a user in the docker group)
+#   DEPLOY_KEY    that login's private SSH key (a key made only for deploying)
+#   DEPLOY_PATH   where the stack lives on the server, for example /opt/stack
+
+on:
+  workflow_dispatch:
+    inputs:
+      thrice:
+        description: "THRICE tag to deploy (blank = leave as is)"
+        required: false
+        default: ""
+      site:
+        description: "Website tag to deploy (blank = leave as is)"
+        required: false
+        default: ""
+
+concurrency: deploy
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Add the SSH key
+        run: |
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/id_deploy
+          chmod 600 ~/.ssh/id_deploy
+          ssh-keyscan -H "${{ secrets.DEPLOY_HOST }}" >> ~/.ssh/known_hosts
+
+      - name: Update the server
+        env:
+          THRICE_TAG: ${{ inputs.thrice }}
+          SITE_TAG: ${{ inputs.site }}
+        run: |
+          args=""
+          [ -n "$THRICE_TAG" ] && args="$args thrice=$THRICE_TAG"
+          [ -n "$SITE_TAG" ] && args="$args site=$SITE_TAG"
+          ssh -i ~/.ssh/id_deploy "${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}" \
+            "cd '${{ secrets.DEPLOY_PATH }}' && ./scripts/update.sh$args"

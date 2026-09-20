@@ -1,0 +1,14 @@
+# ADMIN_ADDR and SITE_ADDR come from compose.yml. Each can be:
+#   admin.example.com                a real domain: Caddy gets and renews the HTTPS certificate by itself
+#   example.com, www.example.com     several names for one site
+#   http://admin.example.com         plain http, for when something else (a Cloudflare Tunnel) already does HTTPS
+#   :8080                            no domain yet: reachable by IP and port
+{$ADMIN_ADDR} {
+	encode zstd gzip
+	reverse_proxy thrice-app:3000
+}
+
+{$SITE_ADDR} {
+	encode zstd gzip
+	reverse_proxy site-app:3000
+}

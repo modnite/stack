@@ -1,0 +1,4 @@
+# Shell scripts and container config must keep LF endings or they fail on Linux.
+*.sh text eol=lf
+Caddyfile text eol=lf
+*.yml text eol=lf

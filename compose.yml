@@ -23,7 +23,7 @@ x-thrice-env: &thrice-env
   APP_SECRET: ${THRICE_APP_SECRET:-}
 
 x-site-env: &site-env
-  DATABASE_URL: postgresql://studio-site:${SITE_DB_PASSWORD:?Set SITE_DB_PASSWORD in .env}@postgres:5432/studio
+  DATABASE_URL: postgresql://studio:${SITE_DB_PASSWORD:?Set SITE_DB_PASSWORD in .env}@postgres:5432/studio
   APP_SECRET: ${SITE_APP_SECRET:?Set SITE_APP_SECRET in .env}
   SITE_DOMAIN: ${SITE_DOMAIN:-}
   SITE_TZ: ${SITE_TZ:-UTC}

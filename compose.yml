@@ -123,7 +123,7 @@ services:
     networks: [data]
 
   site-migrate:
-    image: ${IMAGE_REGISTRY:-ghcr.io}/${IMAGE_OWNER}/studio-site-tools:${SITE_TAG:-latest}
+    image: ${IMAGE_REGISTRY:-ghcr.io}/${IMAGE_OWNER}/setlet-tools:${SITE_TAG:-latest}
     restart: "no"
     environment:
       <<: *site-env
@@ -142,7 +142,7 @@ services:
 
   site-app:
     <<: *common
-    image: ${IMAGE_REGISTRY:-ghcr.io}/${IMAGE_OWNER}/studio-site:${SITE_TAG:-latest}
+    image: ${IMAGE_REGISTRY:-ghcr.io}/${IMAGE_OWNER}/setlet:${SITE_TAG:-latest}
     environment:
       <<: *site-env
       # Caddy is the only way in, so its forwarded headers can be trusted.

@@ -44,7 +44,7 @@ An update pulls the new images, restarts only what changed, waits for the apps t
 How images get built: each app's repository has a workflow that publishes `ghcr.io/<owner>/<image>` when you push to `main` or tag a release (`git tag v1.4.0 && git push --tags`). Images:
 
 - `ghcr.io/<owner>/thrice`
-- `ghcr.io/<owner>/studio-site` and `ghcr.io/<owner>/studio-site-tools` (the website's app and its one-off migration job)
+- `ghcr.io/<owner>/setlet` and `ghcr.io/<owner>/setlet-tools` (the website's app and its one-off migration job)
 
 ## Handy commands
 

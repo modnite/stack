@@ -3,7 +3,8 @@
 #
 #   docker compose -f compose.yml -f compose.build.yml up -d --build
 #
-# Expects the projects next to this folder: ../thrice and ../studio-site. Override with THRICE_SRC and SITE_SRC.
+# Expects the projects next to this folder: ../thrice and ../setlet (the studio website's dev folder name).
+# Override with THRICE_SRC and SITE_SRC if yours live elsewhere.
 services:
   thrice-migrate:
     build: { context: "${THRICE_SRC:-../thrice}" }
@@ -12,6 +13,6 @@ services:
   thrice-worker:
     build: { context: "${THRICE_SRC:-../thrice}" }
   site-migrate:
-    build: { context: "${SITE_SRC:-../studio-site}", target: tools }
+    build: { context: "${SITE_SRC:-../setlet}", target: tools }
   site-app:
-    build: { context: "${SITE_SRC:-../studio-site}", target: runner }
+    build: { context: "${SITE_SRC:-../setlet}", target: runner }

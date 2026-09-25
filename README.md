@@ -75,7 +75,7 @@ Because everything is in Docker volumes and this folder: run `bootstrap.sh` on t
 
 ## Trying it on your own machine
 
-`docker compose -f compose.yml -f compose.build.yml up -d --build` builds from the source folders next to this one (`../thrice`, `../studio-site`) instead of pulling.
+`docker compose -f compose.yml -f compose.build.yml up -d --build` builds from the source folders next to this one (`../thrice`, `../setlet` — the studio website's dev folder) instead of pulling.
 
 ## Good to know
 
@@ -83,7 +83,3 @@ Because everything is in Docker volumes and this folder: run `bootstrap.sh` on t
 - The Hetzner Cloud Firewall should allow only ports 22, 80 and 443. The server's own firewall (ufw) is a second layer, but Docker publishes its ports around it, so do not rely on ufw alone.
 - Hetzner blocks outbound email ports 25 and 465 on new accounts. Use port 587 with STARTTLS for mail.
 - Never put `.env` in git. It is already in `.gitignore`.
-
-## Licence
-
-GNU Affero General Public License v3.0. See `LICENSE`.
